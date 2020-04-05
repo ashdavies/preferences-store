@@ -34,6 +34,7 @@ tasks
         .configureEach { kotlinOptions.jvmTarget = "1.8" }
 
 dependencies {
+    implementation("androidx.core:core-ktx:1.2.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.71")
 
     testImplementation("com.google.truth:truth:1.0.1")
