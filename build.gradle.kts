@@ -24,7 +24,7 @@ android {
         }
 
         get("test").apply {
-            java.srcDirs("src/main/kotlin")
+            java.srcDirs("src/test/kotlin")
         }
     }
 }
@@ -38,6 +38,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.71")
 
     testImplementation("com.google.truth:truth:1.0.1")
+    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
     testImplementation("junit:junit:4.13")
 }
 
