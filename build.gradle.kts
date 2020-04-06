@@ -55,7 +55,3 @@ tasks.configureEach<KotlinCompile> {
 tasks.configureEach<Test> {
     testLogging.events("PASSED", "FAILED", "SKIPPED")
 }
-
-inline fun <reified T : Task> TaskContainer.configureEach(noinline block: T.() -> Unit) {
-    withType<T>().configureEach(block)
-}
