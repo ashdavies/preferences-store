@@ -29,10 +29,6 @@ android {
     }
 }
 
-tasks
-        .withType<KotlinCompile>()
-        .configureEach { kotlinOptions.jvmTarget = "1.8" }
-
 dependencies {
     implementation("androidx.core:core-ktx:1.2.0")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.71")
@@ -46,4 +42,20 @@ repositories {
     gradlePluginPortal()
     mavenCentral()
     google()
+}
+
+tasks.configureEach<Javadoc> {
+    enabled = false
+}
+
+tasks.configureEach<KotlinCompile> {
+    kotlinOptions.jvmTarget = "1.8"
+}
+
+tasks.configureEach<Test> {
+    testLogging.events("PASSED", "FAILED", "SKIPPED")
+}
+
+inline fun <reified T : Task> TaskContainer.configureEach(noinline block: T.() -> Unit) {
+    withType<T>().configureEach(block)
 }
