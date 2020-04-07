@@ -4,7 +4,7 @@ import android.content.SharedPreferences.Editor
 import androidx.core.content.edit
 import io.ashdavies.preferences.SharedPreferencesStore
 
-internal abstract class SharedPreferencesStoreProperty<T> : NamedReadWriteProperty<SharedPreferencesStore, T>() {
+internal abstract class SharedPreferencesEditorProperty<T> : NamedReadWriteProperty<SharedPreferencesStore, T>() {
 
     final override fun setValue(
             thisRef: SharedPreferencesStore,

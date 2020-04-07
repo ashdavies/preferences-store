@@ -8,7 +8,7 @@ internal class DefaultSharedPreferencesProperty<T>(
         private val getValue: SharedPreferences.(String, T) -> T,
         private val setValue: Editor.(String, T) -> Editor,
         private val default: T
-) : SharedPreferencesStoreProperty<T>() {
+) : SharedPreferencesEditorProperty<T>() {
 
     override fun getValue(
             thisRef: SharedPreferencesStore,
