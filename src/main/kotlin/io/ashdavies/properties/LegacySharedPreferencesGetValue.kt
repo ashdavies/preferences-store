@@ -14,9 +14,8 @@ internal class LegacySharedPreferencesValue<T>(
             key: String,
             default: T
     ): T {
-        val value: T? = thisRef.getValue(key, default)
-        if (value != null) {
-            return value
+        if (thisRef.contains(key)) {
+            return thisRef.getValue(key, default)
         }
 
         val oldValue: T? = thisRef.getValue(oldName, default)
