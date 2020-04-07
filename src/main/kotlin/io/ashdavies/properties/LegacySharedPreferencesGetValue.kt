@@ -28,7 +28,6 @@ internal class LegacySharedPreferencesValue<T>(
             return oldValue
         }
 
-        @Suppress("UNCHECKED_CAST")
-        return null as T
+        return default
     }
 }
