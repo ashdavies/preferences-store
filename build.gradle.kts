@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("com.android.library") version "4.1.0-alpha04"
     kotlin("android") version "1.3.70"
+
+    `maven-publish`
 }
 
 android {
