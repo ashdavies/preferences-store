@@ -46,10 +46,6 @@ repositories {
     google()
 }
 
-tasks.configureEach<Javadoc> {
-    enabled = false
-}
-
 tasks.configureEach<KotlinCompile> {
     kotlinOptions.jvmTarget = "1.8"
 }
@@ -57,3 +53,7 @@ tasks.configureEach<KotlinCompile> {
 tasks.configureEach<Test> {
     testLogging.events("PASSED", "FAILED", "SKIPPED")
 }
+
+apply(
+    from = "https://raw.githubusercontent.com/sky-uk/gradle-maven-plugin/master/gradle-mavenizer.gradle"
+)
