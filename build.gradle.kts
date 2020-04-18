@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("com.android.library") version "4.1.0-alpha04"
+    id("com.android.library") version "4.1.0-alpha05"
     kotlin("android") version "1.3.70"
 
     `maven-publish`
@@ -36,7 +36,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.71")
 
     testImplementation("com.google.truth:truth:1.0.1")
-    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
     testImplementation("junit:junit:4.13")
 }
 

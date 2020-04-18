@@ -158,3 +158,22 @@ fun stringSetOrDefault(key: String, default: Set<String>): SharedPreferencesProp
         setValue = Editor::putStringSet,
         block = { it ?: default }
 )
+
+fun stringSetOrNull(): SharedPreferencesProperty<Set<String>?> = NullableSharedPreferencesProperty(
+        getValue = SharedPreferences::getStringSet,
+        setValue = Editor::putStringSet,
+        block = { it }
+)
+
+@Deprecated(
+        message = "Key is deprecated",
+        replaceWith = ReplaceWith(
+                expression = "stringSetOrNull(default)",
+                imports = ["io.ashdavies.extensions.stringSetOrNull"]
+        )
+)
+fun stringSetOrNull(key: String): SharedPreferencesProperty<Set<String>?> = NullableSharedPreferencesProperty(
+        getValue = LegacySharedPreferencesValue(SharedPreferences::getStringSet, Editor::putStringSet, key),
+        setValue = Editor::putStringSet,
+        block = { it }
+)

@@ -4,6 +4,9 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import androidx.core.content.edit
+import kotlin.LazyThreadSafetyMode.SYNCHRONIZED
+import kotlin.reflect.KProperty
 
 interface SharedPreferencesStore {
 
@@ -13,22 +16,27 @@ interface SharedPreferencesStore {
 @Suppress("FunctionName")
 fun SharedPreferencesStore(
         application: Application,
-        name: String
+        name: String,
+        mode: LazyThreadSafetyMode = SYNCHRONIZED
 ): SharedPreferencesStore = object : SharedPreferencesStore {
 
-    override val sharedPreferences: SharedPreferences by lazy {
+    override val sharedPreferences: SharedPreferences by lazy(mode) {
         application.getSharedPreferences(name, MODE_PRIVATE)
     }
 }
 
 @Suppress("FunctionName")
 fun SharedPreferencesStore(
-        activity: Activity
-): SharedPreferencesStore = object : SharedPreferencesStore {
+        activity: Activity,
+        mode: LazyThreadSafetyMode = SYNCHRONIZED
+): SharedPreferencesStore = SharedPreferencesStore(
+        application = activity.application,
+        name = activity.localClassName,
+        mode = mode
+)
 
-    override val sharedPreferences: SharedPreferences by lazy {
-        activity.getPreferences(MODE_PRIVATE)
-    }
+fun SharedPreferencesStore.remove(
+        property: KProperty<*>
+): Unit = sharedPreferences.edit {
+    remove(property.name)
 }
-
-
