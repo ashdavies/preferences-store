@@ -13,6 +13,9 @@ pluginManagement {
             if (requested.id.id == "com.android.library") {
                 useModule("com.android.tools.build:gradle:${requested.version}")
             }
+            if (requested.id.id == "com.github.ben-manes.versions") {
+                useModule("com.github.ben-manes:gradle-versions-plugin:${requested.version}")
+            }
         }
     }
 }

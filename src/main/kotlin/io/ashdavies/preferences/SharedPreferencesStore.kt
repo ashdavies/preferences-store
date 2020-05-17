@@ -2,10 +2,10 @@ package io.ashdavies.preferences
 
 import android.app.Activity
 import android.app.Application
-import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import androidx.core.content.edit
-import kotlin.LazyThreadSafetyMode.SYNCHRONIZED
+import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 import kotlin.reflect.KProperty
 
 interface SharedPreferencesStore {
@@ -15,28 +15,27 @@ interface SharedPreferencesStore {
 
 @Suppress("FunctionName")
 fun SharedPreferencesStore(
-        application: Application,
-        name: String,
-        mode: LazyThreadSafetyMode = SYNCHRONIZED
-): SharedPreferencesStore = object : SharedPreferencesStore {
-
-    override val sharedPreferences: SharedPreferences by lazy(mode) {
-        application.getSharedPreferences(name, MODE_PRIVATE)
-    }
-}
+    coroutineContext: CoroutineContext = EmptyCoroutineContext,
+    application: Application,
+    name: String
+): SharedPreferencesStore = CoroutinePreferencesStore(
+    coroutineContext = coroutineContext,
+    application = application,
+    name = name
+)
 
 @Suppress("FunctionName")
 fun SharedPreferencesStore(
-        activity: Activity,
-        mode: LazyThreadSafetyMode = SYNCHRONIZED
+    coroutineContext: CoroutineContext = EmptyCoroutineContext,
+    activity: Activity
 ): SharedPreferencesStore = SharedPreferencesStore(
-        application = activity.application,
-        name = activity.localClassName,
-        mode = mode
+    coroutineContext = coroutineContext,
+    application = activity.application,
+    name = activity.localClassName
 )
 
 fun SharedPreferencesStore.remove(
-        property: KProperty<*>
+    property: KProperty<*>
 ): Unit = sharedPreferences.edit {
     remove(property.name)
 }

@@ -5,15 +5,15 @@ import android.content.SharedPreferences.Editor
 import androidx.core.content.edit
 
 internal class LegacySharedPreferencesValue<T>(
-        private val getValue: SharedPreferences.(String, T) -> T,
-        private val setValue: Editor.(String, T) -> Editor,
-        private val oldName: String
+    private val getValue: SharedPreferences.(String, T) -> T,
+    private val setValue: Editor.(String, T) -> Editor,
+    private val oldName: String
 ) : (SharedPreferences, String, T) -> T {
 
     override fun invoke(
-            thisRef: SharedPreferences,
-            key: String,
-            default: T
+        thisRef: SharedPreferences,
+        key: String,
+        default: T
     ): T {
         if (thisRef.contains(key)) {
             return thisRef.getValue(key, default)

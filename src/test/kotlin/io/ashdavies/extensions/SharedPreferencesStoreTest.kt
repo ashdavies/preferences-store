@@ -6,10 +6,12 @@ import com.google.common.truth.Truth.assertThat
 import io.ashdavies.content.TestSharedPreferences
 import io.ashdavies.preferences.SharedPreferencesStore
 import io.ashdavies.preferences.remove
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertThrows
 import org.junit.Test
 import org.junit.function.ThrowingRunnable
 
+@ExperimentalCoroutinesApi
 internal class SharedPreferencesPropertyTest : SharedPreferencesStore {
 
     private var defaultProperty: String by stringOrDefault("DEFAULT")

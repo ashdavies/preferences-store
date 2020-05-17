@@ -6,24 +6,24 @@ import kotlin.reflect.KProperty
 internal abstract class NamedReadWriteProperty<R, T> : ReadWriteProperty<R, T> {
 
     final override fun getValue(
-            thisRef: R,
-            property: KProperty<*>
+        thisRef: R,
+        property: KProperty<*>
     ): T = getValue(thisRef, property.name)
 
     abstract fun getValue(
-            thisRef: R,
-            key: String
+        thisRef: R,
+        key: String
     ): T
 
     final override fun setValue(
-            thisRef: R,
-            property: KProperty<*>,
-            value: T
+        thisRef: R,
+        property: KProperty<*>,
+        value: T
     ): Unit = setValue(thisRef, property.name, value)
 
     abstract fun setValue(
-            thisRef: R,
-            key: String,
-            value: T
+        thisRef: R,
+        key: String,
+        value: T
     )
 }
