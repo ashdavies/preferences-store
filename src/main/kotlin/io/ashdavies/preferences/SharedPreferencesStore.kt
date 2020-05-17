@@ -19,7 +19,7 @@ fun SharedPreferencesStore(
     application: Application,
     name: String
 ): SharedPreferencesStore = CoroutinePreferencesStore(
-    coroutineContext = coroutineContext,
+    context = coroutineContext,
     application = application,
     name = name
 )
