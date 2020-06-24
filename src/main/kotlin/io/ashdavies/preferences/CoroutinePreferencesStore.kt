@@ -13,12 +13,11 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 internal class CoroutinePreferencesStore(
-    context: CoroutineContext = EmptyCoroutineContext,
     application: Application,
     name: String
 ) : SharedPreferencesStore {
 
-    private val _sharedPreferences: Deferred<SharedPreferences> = GlobalScope.async(context, LAZY) {
+    private val _sharedPreferences: Deferred<SharedPreferences> = GlobalScope.async(start = LAZY) {
         application.getSharedPreferences(name, MODE_PRIVATE)
     }
 
