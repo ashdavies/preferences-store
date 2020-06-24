@@ -1,45 +1,48 @@
 package io.ashdavies.extensions
 
-import android.content.SharedPreferences
 import androidx.core.content.edit
+import androidx.test.core.app.ApplicationProvider.getApplicationContext
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.google.common.truth.Truth.assertThat
-import io.ashdavies.content.TestSharedPreferences
 import io.ashdavies.preferences.SharedPreferencesStore
 import io.ashdavies.preferences.remove
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert.assertThrows
 import org.junit.Test
 import org.junit.function.ThrowingRunnable
+import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
-internal class SharedPreferencesPropertyTest : SharedPreferencesStore {
+@RunWith(AndroidJUnit4::class)
+internal class SharedPreferencesPropertyTest : SharedPreferencesStore by SharedPreferencesStore(
+    name = SharedPreferencesPropertyTest::class.java.simpleName,
+    application = getApplicationContext()
+) {
 
     private var defaultProperty: String by stringOrDefault("DEFAULT")
     private var legacyProperty: String? by stringOrNull("nullableProperty")
     private var nullableProperty: String? by stringOrNull()
     private var notNullProperty: String by string()
 
-    override val sharedPreferences: SharedPreferences = TestSharedPreferences()
-
     @Test
-    fun `should get default shared preferences default value`() {
+    fun shouldGetDefaultSharedPreferencesDefaultValue() {
         assertThat(defaultProperty).isEqualTo("DEFAULT")
     }
 
     @Test
-    fun `should update from legacy value`() {
+    fun shouldUpdateFromLegacyValue() {
         nullableProperty = "Hello World!"
 
         assertThat(legacyProperty).isEqualTo("Hello World!")
     }
 
     @Test
-    fun `should get nullable shared preferences null value`() {
+    fun shouldGetNullableSharedPreferencesNullValue() {
         assertThat(nullableProperty).isNull()
     }
 
     @Test
-    fun `should get not null shared preferences not null value`() {
+    fun shouldGetNotNullSharedPreferencesNotNullValue() {
         sharedPreferences.edit {
             putString("notNullProperty", "Hello World")
         }
@@ -48,19 +51,19 @@ internal class SharedPreferencesPropertyTest : SharedPreferencesStore {
     }
 
     @Test
-    fun `should set not null shared preferences not null value`() {
+    fun shouldSetNotNullSharedPreferencesNotNullValue() {
         notNullProperty = "Hello World"
 
         assertThat(notNullProperty).isEqualTo("Hello World")
     }
 
     @Test
-    fun `should throw not null shared preferences null value`() {
+    fun shouldThrowNotNullSharedPreferencesNullValue() {
         assertThrows<IllegalArgumentException> { notNullProperty }
     }
 
     @Test
-    fun `should remove preferences value`() {
+    fun shouldRemovePreferencesValue() {
         nullableProperty = "Hello World"
 
         remove(::nullableProperty)
