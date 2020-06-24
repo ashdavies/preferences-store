@@ -26,8 +26,8 @@ android {
             java.srcDirs("src/main/kotlin")
         }
 
-        get("test").apply {
-            java.srcDirs("src/test/kotlin")
+        get("androidTest").apply {
+            java.srcDirs("src/androidTest/kotlin")
         }
     }
 }
@@ -37,9 +37,11 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.3.72")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.6")
 
-    testImplementation("junit:junit:4.13")
-    testImplementation("com.google.truth:truth:1.0.1")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.6")
+    androidTestImplementation("androidx.test:core:1.2.0")
+    androidTestImplementation("androidx.test:runner:1.2.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.1")
+    androidTestImplementation("com.google.truth:truth:1.0.1")
+    androidTestImplementation("junit:junit:4.13")
 }
 
 repositories {
