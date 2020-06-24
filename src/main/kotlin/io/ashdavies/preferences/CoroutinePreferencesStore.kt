@@ -1,7 +1,6 @@
 package io.ashdavies.preferences
 
 import android.app.Application
-import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import kotlinx.coroutines.CoroutineStart.LAZY
 import kotlinx.coroutines.Deferred
@@ -15,11 +14,19 @@ internal class CoroutinePreferencesStore(
     name: String
 ) : SharedPreferencesStore {
 
-    private val _sharedPreferences: Deferred<SharedPreferences> = GlobalScope.async(start = LAZY) {
-        application.getSharedPreferences(name, MODE_PRIVATE)
-    }
+    private val coroutinePreferences: CoroutineValue<SharedPreferences> =
+        CoroutineSharedPreferences(
+            application = application,
+            name = name
+        )
 
-    override val sharedPreferences: SharedPreferences by lazy(NONE) {
-        runBlocking { _sharedPreferences.await() }
-    }
+    private val _sharedPreferences: Deferred<SharedPreferences> =
+        GlobalScope.async(start = LAZY) {
+            coroutinePreferences.get()
+        }
+
+    override val sharedPreferences: SharedPreferences
+        by lazy(NONE) {
+            runBlocking { _sharedPreferences.await() }
+        }
 }
