@@ -1,9 +1,12 @@
+@file:Suppress("FunctionName")
+
 package io.ashdavies.preferences
 
 import android.app.Activity
 import android.app.Application
 import android.content.SharedPreferences
 import androidx.core.content.edit
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlin.reflect.KProperty
 
 interface SharedPreferencesStore {
@@ -11,7 +14,7 @@ interface SharedPreferencesStore {
     val sharedPreferences: SharedPreferences
 }
 
-@Suppress("FunctionName")
+@ExperimentalCoroutinesApi
 fun SharedPreferencesStore(
     application: Application,
     name: String
@@ -20,7 +23,7 @@ fun SharedPreferencesStore(
     name = name
 )
 
-@Suppress("FunctionName")
+@ExperimentalCoroutinesApi
 fun SharedPreferencesStore(
     activity: Activity
 ): SharedPreferencesStore = SharedPreferencesStore(
