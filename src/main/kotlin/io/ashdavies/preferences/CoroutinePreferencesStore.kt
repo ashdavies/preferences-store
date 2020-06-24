@@ -9,8 +9,6 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import kotlin.LazyThreadSafetyMode.NONE
-import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 
 internal class CoroutinePreferencesStore(
     application: Application,
